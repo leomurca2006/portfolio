@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Léo Murça, développeur web</title>
+  <meta name="description" content="Portfolio de Léo Murça, étudiant en développement web à l'IIM : sites, jeux et algorithmie.">
+  <meta name="theme-color" content="#140B2E">
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add("js");
+      try {
+        if (!sessionStorage.getItem("lm-intro") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          d.classList.add("intro");
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%23140B2E'/%3E%3Crect x='3' y='5' width='3' height='9' fill='%231E1242'/%3E%3Crect x='7' y='2' width='4' height='12' fill='%232A1A5C'/%3E%3Crect x='12' y='7' width='2' height='7' fill='%231E1242'/%3E%3Crect x='8' y='4' width='1' height='1' fill='%23FFC46B'/%3E%3Crect x='9' y='7' width='1' height='1' fill='%23FF4FD8'/%3E%3Crect x='8' y='10' width='1' height='1' fill='%23FFC46B'/%3E%3Crect x='4' y='8' width='1' height='1' fill='%234FE3FF'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="evitement" href="#contenu">Aller au contenu</a>
+
+  <div class="chargeur" id="chargeur" aria-hidden="true">
+    <div class="chargeur-volet chargeur-haut"></div>
+    <div class="chargeur-volet chargeur-bas"></div>
+    <pre class="chargeur-terminal" id="chargeur-terminal"></pre>
+  </div>
+
+  <div class="progression" aria-hidden="true"><span></span></div>
+
+  <div class="curseur" aria-hidden="true">
+    <span class="curseur-point"></span>
+    <span class="curseur-anneau"><span class="curseur-label"></span></span>
+  </div>
+
+  <header class="nav" id="nav">
+    <a class="nav-logo" href="#accueil" aria-label="Léo Murça, retour à l'accueil">LM<span class="clignote">_</span></a>
+    <button class="nav-bouton" type="button" aria-expanded="false" aria-controls="nav-liens">
+      <span class="nav-bouton-traits" aria-hidden="true"></span>
+      <span class="nav-bouton-texte">Menu</span>
+    </button>
+    <nav aria-label="Navigation principale">
+      <ul class="nav-liens" id="nav-liens">
+        <li><a href="#projets" data-section="projets">Projets</a></li>
+        <li><a href="#a-propos" data-section="a-propos">À propos</a></li>
+        <li><a href="#competences" data-section="competences">Compétences</a></li>
+        <li><a href="#contact" data-section="contact">Contact</a></li>
+      </ul>
+      <span class="nav-indicateur" aria-hidden="true"></span>
+    </nav>
+  </header>
+
+  <main id="contenu" tabindex="-1">
+    <div id="vue-accueil" class="vue">
+
+      <section class="hero" id="accueil" aria-labelledby="hero-titre">
+        <canvas class="hero-ville" id="ville" aria-hidden="true" data-curseur="allumer"></canvas>
+        <div class="hero-contenu">
+          <h1 class="hero-titre" id="hero-titre" aria-label="Léo Murça">
+            <span class="hero-prompt" aria-hidden="true">&gt;</span>
+            <span class="hero-nom" aria-hidden="true">Léo Murça</span><span class="hero-caret" aria-hidden="true"></span>
+          </h1>
+          <p class="hero-texte">Développeur web et créateur de jeux. Étudiant en 2e année à l'IIM, je conçois des sites et j'apprends à programmer jusque dans les jeux vidéo.</p>
+          <div class="hero-actions">
+            <a class="bouton bouton-plein aimant" href="#projets">Voir mes projets</a>
+            <a class="bouton bouton-contour aimant" href="#contact">Me contacter</a>
+          </div>
+        </div>
+        <p class="hero-astuce" aria-hidden="true">Cliquez sur un immeuble pour allumer ses lumières</p>
+      </section>
+
+      <section class="section projets" id="projets" aria-labelledby="projets-titre">
+        <div class="section-entete">
+          <h2 class="section-titre" id="projets-titre" data-brouille>Projets</h2>
+          <p class="projets-compte" aria-live="polite"><span id="projets-nombre">5</span> projets</p>
+        </div>
+        <div class="filtres" role="group" aria-label="Filtrer les projets" id="filtres"></div>
+        <ol class="projets-liste" id="projets-liste"></ol>
+      </section>
+
+      <section class="section a-propos" id="a-propos" aria-labelledby="apropos-titre">
+        <div class="section-entete">
+          <h2 class="section-titre" id="apropos-titre" data-brouille>À propos</h2>
+        </div>
+        <div class="apropos-grille">
+          <div class="apropos-texte revele">
+            <p class="apropos-intro">Je m'appelle Léo Murça. Je suis étudiant en deuxième année de développement web à l'IIM, à La Défense. Je conçois des sites, et j'aime tout ce qui touche au jeu vidéo&nbsp;: en créer, et m'en servir pour apprendre à programmer.</p>
+            <dl class="apropos-faits">
+              <div><dt>École</dt><dd>IIM, Pôle Léonard de Vinci</dd></div>
+              <div><dt>Formation</dt><dd>Développement web, 2e année</dd></div>
+              <div><dt>Basé à</dt><dd id="apropos-ville">Montfermeil (93)</dd></div>
+            </dl>
+          </div>
+          <div class="parcours">
+            <h3 class="parcours-titre">Parcours</h3>
+            <ol class="frise" id="frise"></ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="section competences" id="competences" aria-labelledby="competences-titre">
+        <div class="section-entete">
+          <h2 class="section-titre" id="competences-titre" data-brouille>Compétences</h2>
+        </div>
+        <div class="competences-grille" id="competences-grille"></div>
+      </section>
+
+      <section class="section contact" id="contact" aria-labelledby="contact-titre">
+        <div class="section-entete">
+          <h2 class="section-titre" id="contact-titre" data-brouille>Contact</h2>
+        </div>
+        <p class="contact-phrase revele">Une opportunité, un projet ou une question&nbsp;? Écrivez-moi.</p>
+        <div class="contact-email revele">
+          <a class="contact-email-lien" id="contact-email" href="mailto:leo.murca@edu.devinci.fr">leo.murca@edu.devinci.fr</a>
+          <button class="bouton bouton-contour bouton-petit" type="button" id="copier-email">Copier l'adresse</button>
+        </div>
+        <dl class="contact-infos revele">
+          <div><dt>Téléphone</dt><dd><a id="contact-tel" href="tel:+33663737988">06 63 73 79 88</a></dd></div>
+          <div><dt>Ville</dt><dd id="contact-ville">Montfermeil (93)</dd></div>
+          <div><dt>GitHub</dt><dd><a href="https://github.com/leomurca2006" target="_blank" rel="noopener">leomurca2006</a></dd></div>
+          <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/l%C3%A9o-mur%C3%A7a-998558382" target="_blank" rel="noopener">Léo Murça</a></dd></div>
+        </dl>
+      </section>
+    </div>
+
+    <div id="vue-projet" class="vue" hidden></div>
+  </main>
+
+  <footer class="pied">
+    <p>© 2026 Léo Murça. Codé à la main en HTML, CSS et JavaScript.</p>
+    <a class="pied-haut" href="#accueil">Revenir en haut</a>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript><p class="noscript">Ce portfolio a besoin de JavaScript pour afficher les projets.</p></noscript>
+
+  <script src="js/data.js"></script>
+  <script src="js/ville.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
